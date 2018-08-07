@@ -1,0 +1,9 @@
+metadata:
+  namespace: commons
+  name: ${project.artifactId}
+data:
+  subscription.name: antifraude-in
+  topic.out.name: antifraude-out
+  datastore.kind: pagamentos
+  datastore.name: apix2018-antifraude
+  datastore.namespace: apix2018-antifraude

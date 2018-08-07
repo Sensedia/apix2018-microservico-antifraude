@@ -1,0 +1,43 @@
+metadata:
+  namespace: commons
+spec:
+  replicas: 1
+  template:
+    spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: commons-key
+      containers:
+        - volumeMounts:
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
+            - name: DATASTORE_KIND
+              valueFrom:
+               configMapKeyRef:
+                  name: ${project.artifactId}
+                  key: datastore.kind
+            - name: DATASTORE_NAME
+              valueFrom:
+               configMapKeyRef:
+                  name: ${project.artifactId}
+                  key: datastore.name
+            - name: DATASTORE_NAMESPACE
+              valueFrom:
+               configMapKeyRef:
+                  name: ${project.artifactId}
+                  key: datastore.namespace
+            - name: SUBSCRIPTION_NAME
+              valueFrom:
+               configMapKeyRef:
+                  name: ${project.artifactId}
+                  key: subscription.name
+            - name: TOPIC_OUT_NAME
+              valueFrom:
+               configMapKeyRef:
+                  name: ${project.artifactId}
+                  key: topic.out.name
+          imagePullPolicy: Always

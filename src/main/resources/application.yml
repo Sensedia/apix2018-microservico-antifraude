@@ -1,0 +1,13 @@
+server:
+    port: '${PORT:8080}'
+    servlet:
+        contextPath: /api/v1
+datastore:
+  namespace: '${DATASTORE_NAMESPACE:apix2018-antifraude}'
+  kind: '${DATASTORE_KIND:pagamentos}'
+subscription:
+  name: antifraude-in
+topic:
+  out:
+    name: antifraude-out
+

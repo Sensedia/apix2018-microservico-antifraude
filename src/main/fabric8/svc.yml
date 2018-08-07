@@ -1,0 +1,9 @@
+metadata:
+  namespace: commons
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  type: LoadBalancer
