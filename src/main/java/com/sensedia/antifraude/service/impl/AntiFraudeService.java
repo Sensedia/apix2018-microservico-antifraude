@@ -1,6 +1,5 @@
 package com.sensedia.antifraude.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -88,38 +87,14 @@ public class AntiFraudeService implements IAntiFraudeService {
 	 */
 	private Optional<SolicitacaoPagamentoDetalheOutput> validacaoDeGeolocalizacao(SolicitacaoPagamento solicitacaoPagamento) {
 		
-		if (solicitacaoPagamento.getGeolocalizacao() != null) {
-			SolicitacaoPagamento ultimoRegistoDePagamento = solicitacaoPagamentoRepository.retornarUltimoRegistroDaSolicitacaoPagamento(solicitacaoPagamento.getNumeroCartao());
-			double theta = ultimoRegistoDePagamento.getGeolocalizacao().getLongitude()
-					- solicitacaoPagamento.getGeolocalizacao().getLongitude();
-			Double distancia = Math.sin(grausParaRadiano(ultimoRegistoDePagamento.getGeolocalizacao().getLatitude()))
-					* Math.sin(grausParaRadiano(solicitacaoPagamento.getGeolocalizacao().getLatitude()))
-					+ Math.cos(grausParaRadiano(ultimoRegistoDePagamento.getGeolocalizacao().getLatitude()))
-							* Math.cos(grausParaRadiano(solicitacaoPagamento.getGeolocalizacao().getLatitude()))
-							* Math.cos(grausParaRadiano(theta));
-			distancia = Math.acos(distancia);
-			distancia = radianoParaGraus(distancia);
-			distancia = distancia * 60 * 1.1515;
-			distancia = distancia * 1.609344;
-			if (distancia.intValue() >= 100) {
-				LOGGER.info("Solicitação ID: {}  Registro de Fraude por geolocalização.: Latitude:"+
-						solicitacaoPagamento.getId()+ solicitacaoPagamento.getGeolocalizacao().getLatitude() + " Longitude:"
-						+ solicitacaoPagamento.getGeolocalizacao().getLongitude() + " Distância:"
-						+ distancia.intValue() + "KM");
-				return Optional.ofNullable(new SolicitacaoPagamentoDetalheOutput(StatusEnum.PROCESSADO_FRAUDE,"Tentativa de pagamento através de uma geolocalização não permitida."));
-			}
-		}
+		// TODO implementar
 		
-		
-		return Optional.empty();
 	}
 	
 	private Optional<SolicitacaoPagamentoDetalheOutput> validacaoDeValorNegativo(SolicitacaoPagamento solicitacaoPagamento) {
-		if (solicitacaoPagamento.getValor() >= 0) {
-			return Optional.empty();
-		}
-		LOGGER.info("Solicitação ID :{} Registro de Fraude - Tentativa de pagamento com valor negativo.",solicitacaoPagamento.getId());
-		return Optional.ofNullable(new SolicitacaoPagamentoDetalheOutput(StatusEnum.PROCESSADO_FRAUDE,"Tentativa de pagamento com valor negativo."));
+
+		// TODO implementar
+	
 	}
 
 	private Optional<SolicitacaoPagamentoDetalheOutput> validacaoDeValorZero(SolicitacaoPagamento solicitacaoPagamento) {
@@ -131,19 +106,9 @@ public class AntiFraudeService implements IAntiFraudeService {
 	}
 
 	private Optional<SolicitacaoPagamentoDetalheOutput> validacaoDeValidadeDoCartao(SolicitacaoPagamento solicitacaoPagamento) {
-		Integer anoAtual = LocalDateTime.now().getYear();
-		Integer mesAtual = LocalDateTime.now().getMonthValue();
 
-		Integer mesValidadeCartao = Integer.parseInt(solicitacaoPagamento.getValidadeCartao().substring(0, 2));
-		Integer anoValidadeCartao = Integer.parseInt(solicitacaoPagamento.getValidadeCartao().substring(3, 7));
-
-		if ((mesValidadeCartao < mesAtual && anoAtual <= anoValidadeCartao) || (anoAtual < anoValidadeCartao)) {
-			LOGGER.info(
-					"Solicitação ID :{} Registro de Fraude para a solicitação - Tentativa de pagamento com cartão com data de validade expirada."+solicitacaoPagamento.getId());
-			return Optional.ofNullable(new SolicitacaoPagamentoDetalheOutput(StatusEnum.PROCESSADO_FRAUDE,"Tentativa de pagamento com cartão com data de validade expirada."));
-		}
-		return Optional.empty();
-
+		// TODO implementar
+		
 	}
 
 	
