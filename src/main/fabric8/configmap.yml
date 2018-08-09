@@ -1,5 +1,5 @@
 metadata:
-  namespace: commons
+  namespace: # informar o namespace do GCP
   name: ${project.artifactId}
 data:
   subscription.name: antifraude-in

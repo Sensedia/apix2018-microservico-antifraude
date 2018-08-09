@@ -112,7 +112,7 @@
 				<configuration>
 					<images>
 						<image>
-							<name>sensedia/${project.artifactId}</name>
+							<name><!-- Login do DockerHub  -->/${project.artifactId}</name>
 							<build>
 								<from>gcr.io/google-appengine/openjdk:8</from>
 								<entryPoint>java -jar /app/${project.build.finalName}.jar</entryPoint>

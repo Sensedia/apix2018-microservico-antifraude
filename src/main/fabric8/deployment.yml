@@ -1,5 +1,5 @@
 metadata:
-  namespace: commons
+  namespace: # setar o namespace do GCP
 spec:
   replicas: 1
   template:
